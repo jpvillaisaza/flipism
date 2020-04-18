@@ -4,23 +4,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
     <style>
       body {
         font-family: sans-serif;
       }
-      .answer {
-        font-size: xx-large;
+      header {
+        text-align: center;
       }
-      .centered {
+      main {
+        font-size: xx-large;
         position: fixed;
-        top: 50%;
+        bottom: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
         left: 50%;
         transform: translate(-50%, -50%);
       }
     </style>
   </head>
   <body>
-    <div id="answer" class="answer centered" />
+    <header>
+      <h1>{{ page.title }}</h1>
+    </header>
+    <main>
+      <div id="answer"></div>
+    </main>
+    <footer>
+      {% for otherPage in site.pages %}
+      {% if otherPage.title and otherPage.title != page.title %}
+      <a href="{{ otherPage.url }}">
+        {{ otherPage.title }}
+      </a>
+      {% endif %}
+      {% endfor %}
+      </ul>
+    </footer>
     <script>
       const answer = Boolean(Math.floor(Math.random() * 2));
       document.getElementById("answer").innerText = answer ? "{{ page.heads }}" : "{{ page.tails }}"
